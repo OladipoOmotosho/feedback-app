@@ -5,9 +5,10 @@ import FeedbackData from "./data/FeedbackData";
 import FeedbackStats from "./components/FeedbackStats";
 import FeedbackForm from "./components/FeedbackForm";
 import { v4 as uuidv4 } from "uuid";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import AboutIconLink from "./components/AboutIconLink";
+import Card from "./components/shared/Card";
 
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData);
@@ -46,6 +47,16 @@ function App() {
 
           <Route path="/about" element={<AboutIconLink />} />
         </Routes>
+
+        {/* learning NavLink use case scenario */}
+        {/* <Card>
+          <NavLink to="/" activeClassName="active">
+            Home
+          </NavLink>
+          <NavLink to="/about" activeClassName="active">
+            About
+          </NavLink>
+        </Card> */}
         <AboutIconLink />
       </div>
     </BrowserRouter>
