@@ -9,6 +9,8 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import AboutIconLink from "./components/AboutIconLink";
 import Card from "./components/shared/Card";
+import Post from "./components/Post";
+import { FeedbackProvider } from "./context/FeedbackContext";
 
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData);
@@ -25,31 +27,30 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Header />
-      <div className="container">
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <>
-                <FeedbackForm handleAdd={addFeedback} />
-                <FeedbackStats feedback={feedback} />
-                <FeedbackList
-                  feedback={feedback}
-                  handleDelete={deleteFeedback}
-                />
-              </>
-            }
-          ></Route>
-          <Route path="/about" element={<AboutPage />} />
+    <FeedbackProvider>
+      <BrowserRouter>
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <FeedbackForm handleAdd={addFeedback} />
+                  <FeedbackStats />
+                  <FeedbackList handleDelete={deleteFeedback} />
+                </>
+              }
+            ></Route>
+            <Route path="/about" element={<AboutPage />} />
 
-          <Route path="/about" element={<AboutIconLink />} />
-        </Routes>
+            <Route path="/about" element={<AboutIconLink />} />
+            <Route path="/post/:id/:name/:age/:title" element={<Post />} />
+          </Routes>
 
-        {/* learning NavLink use case scenario */}
-        {/* <Card>
+          {/* learning NavLink use case scenario */}
+          {/* <Card>
           <NavLink to="/" activeClassName="active">
             Home
           </NavLink>
@@ -57,9 +58,10 @@ function App() {
             About
           </NavLink>
         </Card> */}
-        <AboutIconLink />
-      </div>
-    </BrowserRouter>
+          <AboutIconLink />
+        </div>
+      </BrowserRouter>
+    </FeedbackProvider>
   );
 }
 
